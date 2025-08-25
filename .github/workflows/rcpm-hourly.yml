@@ -31,8 +31,8 @@ jobs:
           TEQBLAZE_PASSWORD: ${{ secrets.TEQBLAZE_PASSWORD }}
           # Provide one or more bases (comma, semicolon, or newline separated)
           BASE_FILTERS: |
-          33across_001Pg0000197KcKIAU_IA_display_USeast
-          Media.net_IA_8CU43768M_Video_Prebid_USeast
+            33across_001Pg0000197KcKIAU_IA_display_USeast
+            Media.net_IA_8CU43768M_Video_Prebid_USeast
           # Optional tuning:
           LIVE_UPDATES: "true"
           TIME_ZONE: "UTC"
