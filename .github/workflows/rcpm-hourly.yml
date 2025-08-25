@@ -7,7 +7,7 @@ on:
 
 concurrency:
   group: rcpm-hourly
-  cancel-in-progress: false
+  cancel-in-progress: True
 
 jobs:
   run:
