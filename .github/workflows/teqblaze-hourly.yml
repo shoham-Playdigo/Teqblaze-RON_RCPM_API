@@ -1,53 +1,44 @@
 name: Teqblaze hourly updater
 
-
 on:
-schedule:
-- cron: '5 * * * *' # run 5 minutes past the hour (UTC)
-workflow_dispatch: {}
-
-
-permissions:
-contents: read
-
+  workflow_dispatch: {}
+  schedule:
+    - cron: '5 * * * *'
 
 concurrency:
-group: teqblaze-hourly
-cancel-in-progress: false
+  group: teqblaze-hourly
+  cancel-in-progress: false
 
+permissions:
+  contents: read
 
 jobs:
-run:
-runs-on: ubuntu-latest
-steps:
-- name: Check out repo
-uses: actions/checkout@v4
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-- name: Set up Python
-uses: actions/setup-python@v5
-with:
-python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
+      - name: Run updater
+        env:
+          TEQBLAZE_EMAIL: ${{ secrets.TEQBLAZE_EMAIL }}
+          TEQBLAZE_PASSWORD: ${{ secrets.TEQBLAZE_PASSWORD }}
+        run: python teqblaze_hourly_github.py
 
-- name: Install dependencies
-run: |
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-
-
-- name: Run updater
-env:
-PLAYDIGO_EMAIL: ${{ secrets.TEQBLAZE_EMAIL }}
-PLAYDIGO_PASSWORD: ${{ secrets.TEQBLAZE_PASSWORD }}
-run: |
-python teqblaze_hourly_github.py
-
-
-- name: Upload report artifacts
-if: always()
-uses: actions/upload-artifact@v4
-with:
-name: report-output-${{ github.run_id }}
-path: 'report output/**'
-if-no-files-found: warn
+      - name: Upload report artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-output-${{ github.run_id }}
+          path: 'report output/**'
+          if-no-files-found: warn
