@@ -38,8 +38,8 @@ pip install -r requirements.txt
 
 - name: Run updater
 env:
-PLAYDIGO_EMAIL: ${{ secrets.PLAYDIGO_EMAIL }}
-PLAYDIGO_PASSWORD: ${{ secrets.PLAYDIGO_PASSWORD }}
+PLAYDIGO_EMAIL: ${{ secrets.TEQBLAZE_EMAIL }}
+PLAYDIGO_PASSWORD: ${{ secrets.TEQBLAZE_PASSWORD }}
 run: |
 python teqblaze_hourly_github.py
 
