@@ -1,4 +1,20 @@
 # teqblaze_hourly_github.py
+curR_set, curR_map = canon_map(current_rcpm_vals)
+curN_set, curN_map = canon_map(current_ron_vals)
+union_before = curR_set | curN_set
+
+
+# Build targets from the current hour data (for this pair only)
+dsp_names = set(rcpm_names + ron_names)
+pair_rows = [r for r in rows if (r.get("dsp_name") or r.get("dsp")) in dsp_names]
+metrics_by_canon, targetR_set, targetN_set = build_lists_with_metrics(pair_rows)
+targetN_set = targetN_set - targetR_set # disjoint
+
+
+# ---- UNION-PRESERVING MOVE LOGIC (exact equality to old union) ----
+# Desired membership LIMITED to old union (legacy non-target items stay where they are)
+desiredR_set = (targetR_set & union_before) | (curR_set - (targetN_set & union_before))
+desiredN_set = (targetN_set & union_before) | (curN_set - (targetR_set & union_before))
 assert (desiredR_set | desiredN_set) == union_before, "Desired union must equal old union"
 
 
