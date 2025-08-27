@@ -29,6 +29,10 @@ BASE_FILTERS = [
     "Loop-Me_IA_12861_Video_oRTB_USeast",
     "FreeWheel_IA_1603410_Video(Android)_oRTB_USeast",
     "Sovrn_IA_489963_Banner(4SC)_oRTB_USeast",
+    "Sovrn_IA_489963_Banner(3SC)_oRTB_USeast",
+    "Sovrn_IA_489963_Video_oRTB_USeast",
+    "Sovrn_Web_489963_Banner_oRTB_USeast",
+    "Loop-Me_IA_12861_Banner_oRTB_USeast",
 ]
 
 # Selection thresholds for List A (RCPM)
